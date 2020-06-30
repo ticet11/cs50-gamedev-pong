@@ -55,6 +55,15 @@ function love.draw()
     'center' -- alignment mode, can be 'center, 'left', or 'right'
     )
 
+    -- left side paddle
+    love.graphics.rectangle('fill', 10, 30, 5, 20)
+
+    -- right side paddle
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT -50, 5, 20)
+
+    -- render ball in center
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT/ 2 - 2, 4, 4)
+
     -- end rendering with virtual resolution
     push:apply('end')
 end
