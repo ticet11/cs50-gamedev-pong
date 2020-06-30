@@ -11,6 +11,11 @@ VIRTUAL_HEIGHT = 243
 -- love.load runs once, when the game initializes
 
 function love.load()
+    -- use nearest-neighbor filtering on upscaling and downscaling to prevent blurring of text 
+    -- and graphics; try removing this function to see the difference!
+    love.graphics.setDefaultFilter('nearest', 'nearest')
+
+    -- Initialize virtual resolution
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = false,
