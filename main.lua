@@ -43,9 +43,14 @@ function love.draw()
     -- render at virtual resolution
     push:apply('start')
 
+    -- clear screen with specified color
+    -- values must be x/255
+    love.graphics.clear(40/255, 45/255, 52/255, 255/255)
+
+    -- Welcome text at top of screen 
     love.graphics.printf('Hello Pong!', -- test to render
     0, -- Starting x, 0 because we'll center it
-    VIRTUAL_HEIGHT / 2 - 6, -- Starting Y, halfway down the screen
+    20, -- Starting Y, halfway down the screen
     VIRTUAL_WIDTH, -- number of pixels to center within the entire screen
     'center' -- alignment mode, can be 'center, 'left', or 'right'
     )
