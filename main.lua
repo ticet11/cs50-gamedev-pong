@@ -15,6 +15,12 @@ function love.load()
     -- and graphics; try removing this function to see the difference!
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
+    -- 'retro' font
+    smallFont = love.graphics.newFont('font.ttf', 8)
+
+    -- set active font to smallFont variable
+    love.graphics.setFont(smallFont)
+
     -- Initialize virtual resolution
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
