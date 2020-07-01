@@ -88,13 +88,22 @@ function love.keypressed(key)
         -- terminate application
         love.event.quit()
 
-    -- pressing enter during start state will switch to play state
-    -- during play state, the ball will move in a random direction
+        -- pressing enter during start state will switch to play state
+        -- during play state, the ball will move in a random direction
     elseif key == 'enter' or key == 'return' then
         if gameState == 'start' then
             gameState = 'play'
         else
             gameState = 'start'
+
+            -- start ball's position in middle
+            ballX = VIRTUAL_WIDTH / 2 - 2
+            ballY = VIRTUAL_HEIGHT / 2 - 2
+
+            -- give ball's x and y velocity a randome starting value
+            ballDX = math.random(2) == 1 and 100 or -100
+            ballDY = math.random(-50, 50) * 1.5
+        end
     end
 end
 
