@@ -47,13 +47,13 @@ function love.load()
         vsync = true
     })
 
-    -- initialize score variables
-    player1Score = 0
-    player2Score = 0
+    -- initialize our player paddles; make them global so that they can be
+    -- detected by other functions and modules
+    player1 = Paddle(10, 30, 5, 20)
+    player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT - 30, 5, 20)
 
-    -- paddle positions (y for up and down)
-    player1Y = 30
-    player2Y = VIRTUAL_HEIGHT - 50
+    -- place a ball in the middle of the screen
+    ball = Ball(VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
 
     -- game state variable to determine render and update
     gameState = 'start'
@@ -76,6 +76,15 @@ function love.update(dt)
         player2Y = math.min(VIRTUAL_HEIGHT - 20, player2Y + PADDLE_SPEED * dt)
     end
 
+    -- update ball based on DX and DY if in play state
+    -- scale velocity by dt -> framerate-independent
+    if gameState == 'play' then
+        ball:update(dt)
+    end
+
+    player1:update(dt)
+    player2:update(dt)
+
 end
 
 function love.keypressed(key)
@@ -91,6 +100,9 @@ function love.keypressed(key)
             gameState = 'play'
         else
             gameState = 'start'
+
+            -- ball's reset method
+            ball:reset()
         end
     end
 end
@@ -116,17 +128,12 @@ function love.draw()
     'center' -- alignment mode, can be 'center, 'left', or 'right'
     )
 
-    -- draw score on screen
-    -- set font before the block you wish to use it in
-    love.graphics.setFont(scoreFont)
-    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
-    love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
+    -- call paddle class render methods
+    player1.render()
+    player2.render()
 
-    -- left side paddle
-    love.graphics.rectangle('fill', 10, player1Y, 5, 20)
-
-    -- right side paddle
-    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 10, player2Y, 5, 20)
+    -- render ball
+    ball:render()
 
     -- end rendering with virtual resolution
     push:apply('end')
