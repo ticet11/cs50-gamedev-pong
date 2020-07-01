@@ -18,6 +18,9 @@ function love.load()
     -- and graphics; try removing this function to see the difference!
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
+    -- seed random num generator with current time to vary on each startup
+    math.randomseed(os.time())
+
     -- variable for small fonts
     smallFont = love.graphics.newFont('font.ttf', 8)
 
@@ -41,6 +44,17 @@ function love.load()
     -- paddle positions (y for up and down)
     player1Y = 30
     player2Y = VIRTUAL_HEIGHT - 50
+
+    -- velocity and position variables for ball when play begins
+    ballX = VIRTUAL_WIDTH / 2 - 2
+    ballY = VIRTUAL_HEIGHT / 2 - 2
+
+    -- returns a random value between left and right number
+    ballDX = math.random(2) == 1 and 100 or -100
+    ballDY = math.random(-50, 50)
+
+    -- game state variable to determine render and update
+    gameState = 'start'
 end
 
 function love.update(dt)
