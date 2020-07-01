@@ -56,7 +56,7 @@ function love.update(dt)
     -- player 2 movement
     if love.keyboard.isDown('up') then
         player2Y = player2Y + -PADDLE_SPEED * dt
-    elseif love.keyboard.isDown('s') then
+    elseif love.keyboard.isDown('down') then
         player2Y = player2Y + PADDLE_SPEED * dt
     end
 end
@@ -97,10 +97,10 @@ function love.draw()
     love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
 
     -- left side paddle
-    love.graphics.rectangle('fill', 10, 30, 5, 20)
+    love.graphics.rectangle('fill', 10, player1Y, 5, 20)
 
     -- right side paddle
-    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT - 50, 5, 20)
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH - 10, player2Y, 5, 20)
 
     -- render ball in center
     love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
