@@ -1,4 +1,4 @@
-Ball = Class()
+Ball = Class{}
 
 function Ball:init(x, y, width, height)
     self.x = x
