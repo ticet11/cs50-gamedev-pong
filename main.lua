@@ -55,14 +55,6 @@ function love.load()
     player1Y = 30
     player2Y = VIRTUAL_HEIGHT - 50
 
-    -- velocity and position variables for ball when play begins
-    ballX = VIRTUAL_WIDTH / 2 - 2
-    ballY = VIRTUAL_HEIGHT / 2 - 2
-
-    -- returns a random value between left and right number
-    ballDX = math.random(2) == 1 and 100 or -100
-    ballDY = math.random(-50, 50)
-
     -- game state variable to determine render and update
     gameState = 'start'
 end
@@ -84,12 +76,6 @@ function love.update(dt)
         player2Y = math.min(VIRTUAL_HEIGHT - 20, player2Y + PADDLE_SPEED * dt)
     end
 
-    -- update DX and DY in play state
-    -- scale velocity by dt so movement is framerate-independent.
-    if gameState == 'play' then
-        ballX = ballX + ballDX * dt
-        ballY = ballY + ballDY * dt
-    end
 end
 
 function love.keypressed(key)
@@ -105,14 +91,6 @@ function love.keypressed(key)
             gameState = 'play'
         else
             gameState = 'start'
-
-            -- start ball's position in middle
-            ballX = VIRTUAL_WIDTH / 2 - 2
-            ballY = VIRTUAL_HEIGHT / 2 - 2
-
-            -- give ball's x and y velocity a randome starting value
-            ballDX = math.random(2) == 1 and 100 or -100
-            ballDY = math.random(-50, 50) * 1.5
         end
     end
 end
@@ -149,9 +127,6 @@ function love.draw()
 
     -- right side paddle
     love.graphics.rectangle('fill', VIRTUAL_WIDTH - 10, player2Y, 5, 20)
-
-    -- render ball in center
-    love.graphics.rectangle('fill', ballX, ballY, 4, 4)
 
     -- end rendering with virtual resolution
     push:apply('end')
