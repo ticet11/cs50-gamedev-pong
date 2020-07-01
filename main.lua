@@ -2,6 +2,16 @@
 -- https://github.com/Ulydev/push
 push = require 'push'
 
+-- Class makes OOP easier in Love2D
+-- https://github.com/vrld/hump/blob/master/class.lua
+Class = require 'class'
+
+-- Paddle class stores position and dimensions for each paddle and rendering logic
+require 'Paddle'
+
+-- Ball class stores position, dimensions and rendering logic for ball
+require 'Ball'
+
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
 
