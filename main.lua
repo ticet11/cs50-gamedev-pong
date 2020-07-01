@@ -73,6 +73,13 @@ function love.update(dt)
     elseif love.keyboard.isDown('down') then
         player2Y = math.min(VIRTUAL_HEIGHT - 20, player2Y + PADDLE_SPEED * dt)
     end
+
+    -- update DX and DY in play state
+    -- scale velocity by dt so movement is framerate-independent.
+    if gameState == 'play' then
+        ballX = ballX + ballDX * dt
+        ballY = ballY + ballDY * dt
+    end
 end
 
 function love.keypressed(key)
@@ -80,6 +87,14 @@ function love.keypressed(key)
     if key == 'escape' then
         -- terminate application
         love.event.quit()
+
+    -- pressing enter during start state will switch to play state
+    -- during play state, the ball will move in a random direction
+    elseif key == 'enter' or key == 'return' then
+        if gameState == 'start' then
+            gameState = 'play'
+        else
+            gameState = 'start'
     end
 end
 
@@ -117,7 +132,7 @@ function love.draw()
     love.graphics.rectangle('fill', VIRTUAL_WIDTH - 10, player2Y, 5, 20)
 
     -- render ball in center
-    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
+    love.graphics.rectangle('fill', ballX, ballY, 4, 4)
 
     -- end rendering with virtual resolution
     push:apply('end')
