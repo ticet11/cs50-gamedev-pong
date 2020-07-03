@@ -20,7 +20,7 @@ function Ball:reset()
 end
 
 -- applies velocity to postion, scaled by dt
-function Ball.update(dt)
+function Ball:update(dt)
     self.x = self.x + self.dx * dt
     self.y = self.y + self.dy * dt
 end
