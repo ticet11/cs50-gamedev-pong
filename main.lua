@@ -70,6 +70,8 @@ function love.update(dt)
     elseif love.keyboard.isDown('s') then
         -- add paddle speed to current y scaled by deltaTime
         player1.dy = PADDLE_SPEED
+    else
+        player1.dy = 0
     end
 
     -- player 2 movement
