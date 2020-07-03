@@ -67,7 +67,16 @@ function love.load()
 end
 
 function love.update(dt)
-    if gameState == 'play' then
+    if gameState == 'serve' then
+        -- before switching to play change x velocity based on who scored
+        ball.dy = math.random(-50, 50)
+        if servingPlayer == 1 then
+            ball.dx = math.random(140, 200)
+        else
+            ball.dx = -math.random(140, 200)
+        end
+        
+    elseif gameState == 'play' then
         -- ball collision with paddles -> increase speed in opposite direction
         if ball:collides(player1) then
             ball.dx = -ball.dx * 1.03
