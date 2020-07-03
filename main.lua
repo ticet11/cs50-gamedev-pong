@@ -50,6 +50,10 @@ function love.load()
         vsync = true
     })
 
+    -- initialize score variables
+    player1Score = 0
+    player2Score = 0
+
     -- initialize our player paddles; make them global so that they can be
     -- detected by other functions and modules
     player1 = Paddle(10, 30, 5, 20)
@@ -134,6 +138,11 @@ function love.draw()
     VIRTUAL_WIDTH, -- number of pixels to center within the entire screen
     'center' -- alignment mode, can be 'center, 'left', or 'right'
     )
+
+    -- draw scores
+    love.graphics.setFont(scoreFont)
+    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
+    love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
 
     -- call paddle class render methods
     player1:render()
