@@ -1,6 +1,6 @@
 Paddle = Class {}
 
-function Ball:init(x, y, width, height)
+function Paddle:init(x, y, width, height)
     self.x = x
     self.y = y
     self.width = width

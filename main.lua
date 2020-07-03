@@ -66,17 +66,19 @@ function love.update(dt)
     -- player 1 movement
     if love.keyboard.isDown('w') then
         -- add negative paddle speed to current y scaled by deltaTime
-        player1Y = math.max(0, player1Y + -PADDLE_SPEED * dt)
+        player1.dy = math.max(0, player1Y + -PADDLE_SPEED * dt)
     elseif love.keyboard.isDown('s') then
         -- add paddle speed to current y scaled by deltaTime
-        player1Y = math.min(VIRTUAL_HEIGHT - 20, player1Y + PADDLE_SPEED * dt)
+        player1.dy = math.min(VIRTUAL_HEIGHT - 20, player1Y + PADDLE_SPEED * dt)
     end
 
     -- player 2 movement
     if love.keyboard.isDown('up') then
-        player2Y = math.max(0, player2Y + -PADDLE_SPEED * dt)
+        player2.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('down') then
-        player2Y = math.min(VIRTUAL_HEIGHT - 20, player2Y + PADDLE_SPEED * dt)
+        player2.dy = PADDLE_SPEED
+    else
+        player2.dy = 0
     end
 
     -- update ball based on DX and DY if in play state
@@ -132,12 +134,22 @@ function love.draw()
     )
 
     -- call paddle class render methods
-    player1.render()
-    player2.render()
+    player1:render()
+    player2:render()
 
     -- render ball
     ball:render()
 
+    -- render FPS
+    displayFPS()
+
     -- end rendering with virtual resolution
     push:apply('end')
+end
+
+-- Render FPS
+function displayFPS()
+    love.graphics.setFont(smallFont)
+    love.graphics.setColor(0 / 255, 255 / 255, 0 / 255, 255 / 255)
+    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
 end
