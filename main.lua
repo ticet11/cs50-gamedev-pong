@@ -75,7 +75,7 @@ function love.update(dt)
         else
             ball.dx = -math.random(140, 200)
         end
-        
+
     elseif gameState == 'play' then
         -- ball collision with paddles -> increase speed in opposite direction
         if ball:collides(player1) then
@@ -164,16 +164,12 @@ function love.keypressed(key)
         -- terminate application
         love.event.quit()
 
-        -- pressing enter during start state will switch to play state
-        -- during play state, the ball will move in a random direction
+        -- pressing enter during start or serve state will switch to next state
     elseif key == 'enter' or key == 'return' then
         if gameState == 'start' then
+            gameState = 'serve'
+        elseif gameState == 'serve' then
             gameState = 'play'
-        else
-            gameState = 'start'
-
-            -- ball's reset method
-            ball:reset()
         end
     end
 end
