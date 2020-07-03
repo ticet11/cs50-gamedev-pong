@@ -28,6 +28,9 @@ function love.load()
     -- and graphics; try removing this function to see the difference!
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
+    -- set title for application window
+    love.window.setTitle('Pong')
+
     -- seed random num generator with current time to vary on each startup
     math.randomseed(os.time())
 
