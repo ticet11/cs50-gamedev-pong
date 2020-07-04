@@ -117,14 +117,27 @@ function love.update(dt)
     if ball.x < 0 then
         servingPlayer = 1
         player2Score = player2Score + 1
-        ball:reset()
-        gameState = 'serve'
+
+        -- game over when score reaches 10
+        if player2Score == 10 then
+            winningPlayer = 2
+            gameState = 'done'
+        else
+            gameState = 'serve'
+            ball:reset()
+        end
     end
     if ball.x > VIRTUAL_WIDTH then
         servingPlayer = 2
         player1Score = player1Score + 1
-        ball:reset()
-        gameState = 'serve'
+
+        if player1Score == 10 then
+            winningPlayer = 2
+            gameState = 'done'
+        else
+            gameState = 'serve'
+            ball:reset()
+        end
     end
 
     -- player 1 movement
@@ -170,6 +183,19 @@ function love.keypressed(key)
             gameState = 'serve'
         elseif gameState == 'serve' then
             gameState = 'play'
+        elseif gameState == 'done' then
+            gameState = 'serve'
+
+            ball:reset()
+
+            player1Score = 0
+            player2Score = 0
+
+            if winningPlayer == 1 then
+                servingPlayer = 2
+            else
+                servingPlayer = 1
+            end
         end
     end
 end
@@ -188,17 +214,31 @@ function love.draw()
     -- If you don't want the scoreFont that is used below to apply here, 
     -- you must set smallFont up here
     love.graphics.setFont(smallFont)
-    love.graphics.printf('Hello Pong!', -- test to render
-    0, -- Starting x, 0 because we'll center it
-    20, -- Starting Y, halfway down the screen
-    VIRTUAL_WIDTH, -- number of pixels to center within the entire screen
-    'center' -- alignment mode, can be 'center, 'left', or 'right'
-    )
 
-    -- draw scores
-    love.graphics.setFont(scoreFont)
-    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
-    love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
+    displayScore()
+
+    if gameState == 'start' then
+        love.graphics.setFont(smallFont)
+        love.graphics.printf('Hello Pong!', -- test to render
+        0, -- Starting x, 0 because we'll center it
+        20, -- Starting Y, halfway down the screen
+        VIRTUAL_WIDTH, -- number of pixels to center within the entire screen
+        'center' -- alignment mode, can be 'center, 'left', or 'right'
+        )
+        love.graphics.printf('Press "Enter" to begin!', 0, 20, VIRTUAL_WIDTH, 'center')
+    elseif gameState == 'serve' then
+        love.graphics.setFont(smallFont)
+        love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 0, 10, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Press "Enter" to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
+    elseif gameState == 'play' then
+        -- no UI message to display
+    elseif gameState == 'done' then
+        -- UI messages
+        love.graphics.setFont(largeFont)
+        love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!', 0, 10, VIRTUAL_WIDTH, 'center')
+        love.graphics.setFont(smallFont)
+        love.graphics.printf('Press "Enter" to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
+    end
 
     -- call paddle class render methods
     player1:render()
@@ -219,4 +259,12 @@ function displayFPS()
     love.graphics.setFont(smallFont)
     love.graphics.setColor(0 / 255, 255 / 255, 0 / 255, 255 / 255)
     love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
+end
+
+-- draw score to screen
+function displayScore()
+    -- draw score 
+    love.graphics.setFont(scoreFont)
+    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
+    love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
 end
