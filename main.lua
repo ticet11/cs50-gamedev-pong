@@ -133,7 +133,7 @@ function love.update(dt)
             player1Score = player1Score + 1
 
             if player1Score == 10 then
-                winningPlayer = 2
+                winningPlayer = 1
                 gameState = 'done'
             else
                 gameState = 'serve'
@@ -221,12 +221,7 @@ function love.draw()
 
     if gameState == 'start' then
         love.graphics.setFont(smallFont)
-        love.graphics.printf('Hello Pong!', -- test to render
-        0, -- Starting x, 0 because we'll center it
-        20, -- Starting Y, halfway down the screen
-        VIRTUAL_WIDTH, -- number of pixels to center within the entire screen
-        'center' -- alignment mode, can be 'center, 'left', or 'right'
-        )
+        love.graphics.printf('Hello Pong!', 0, 10, VIRTUAL_WIDTH, 'center')
         love.graphics.printf('Press "Enter" to begin!', 0, 20, VIRTUAL_WIDTH, 'center')
     elseif gameState == 'serve' then
         love.graphics.setFont(smallFont)
