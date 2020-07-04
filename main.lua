@@ -37,6 +37,8 @@ function love.load()
     -- variable for small fonts
     smallFont = love.graphics.newFont('font.ttf', 8)
 
+    largeFont = love.graphics.newFont('font.ttf', 16)
+
     -- larger font variable for score
     scoreFont = love.graphics.newFont('font.ttf', 32)
 
@@ -111,32 +113,32 @@ function love.update(dt)
             ball.y = VIRTUAL_HEIGHT - 4
             ball.dy = -ball.dy
         end
-    end
 
-    -- left/right boundary functionality
-    if ball.x < 0 then
-        servingPlayer = 1
-        player2Score = player2Score + 1
+        -- left/right boundary functionality
+        if ball.x < 0 then
+            servingPlayer = 1
+            player2Score = player2Score + 1
 
-        -- game over when score reaches 10
-        if player2Score == 10 then
-            winningPlayer = 2
-            gameState = 'done'
-        else
-            gameState = 'serve'
-            ball:reset()
+            -- game over when score reaches 10
+            if player2Score == 10 then
+                winningPlayer = 2
+                gameState = 'done'
+            else
+                gameState = 'serve'
+                ball:reset()
+            end
         end
-    end
-    if ball.x > VIRTUAL_WIDTH then
-        servingPlayer = 2
-        player1Score = player1Score + 1
+        if ball.x > VIRTUAL_WIDTH then
+            servingPlayer = 2
+            player1Score = player1Score + 1
 
-        if player1Score == 10 then
-            winningPlayer = 2
-            gameState = 'done'
-        else
-            gameState = 'serve'
-            ball:reset()
+            if player1Score == 10 then
+                winningPlayer = 2
+                gameState = 'done'
+            else
+                gameState = 'serve'
+                ball:reset()
+            end
         end
     end
 
