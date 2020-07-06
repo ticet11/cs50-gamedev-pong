@@ -63,6 +63,9 @@ function love.load()
     player1Score = 0
     player2Score = 0
 
+    -- starting serving player
+    servingPlayer = math.random(1, 2)
+
     -- initialize our player paddles; make them global so that they can be
     -- detected by other functions and modules
     player1 = Paddle(10, 30, 5, 20)
