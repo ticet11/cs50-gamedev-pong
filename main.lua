@@ -45,6 +45,13 @@ function love.load()
     -- set active font to smallFont variable
     love.graphics.setFont(smallFont)
 
+    -- Set up sound effects and call play method on each
+    sounds = {
+        ['paddle_hit'] = love.audio.newSource('sounds/paddle_hit.wav', static),
+        ['wall_hit'] = love.audio.newSource('sounds/wall_hit.wav', static),
+        ['score'] = love.audio.newSource('sounds/score.wav', static)
+    }
+
     -- Initialize virtual resolution
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
