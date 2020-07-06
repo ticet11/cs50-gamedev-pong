@@ -97,6 +97,7 @@ function love.update(dt)
             else
                 ball.dy = math.random(10, 150)
             end
+            sounds['paddle_hit']:play()
         end
         if ball:collides(player2) then
             ball.dx = -ball.dx * 1.03
@@ -107,24 +108,27 @@ function love.update(dt)
             else
                 ball.dy = math.random(10, 150)
             end
+            sounds['paddle_hit']:play()
         end
 
         -- detect upper and lower boundary collision
         if ball.y <= 0 then
             ball.y = 0
             ball.dy = -ball.dy
+            sounds['wall_hit']:play()
         end
 
-        -- account for ball's size
         if ball.y >= VIRTUAL_HEIGHT - 4 then
             ball.y = VIRTUAL_HEIGHT - 4
             ball.dy = -ball.dy
+            sounds['wall_hit']:play()
         end
 
         -- left/right boundary functionality
         if ball.x < 0 then
             servingPlayer = 1
             player2Score = player2Score + 1
+            sounds['score']:play()
 
             -- game over when score reaches 10
             if player2Score == 10 then
@@ -138,6 +142,7 @@ function love.update(dt)
         if ball.x > VIRTUAL_WIDTH then
             servingPlayer = 2
             player1Score = player1Score + 1
+            sounds['score']:play()
 
             if player1Score == 10 then
                 winningPlayer = 1
