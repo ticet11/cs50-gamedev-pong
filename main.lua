@@ -183,9 +183,9 @@ function love.update(dt)
     -- end
 
     -- player 2 AI movement
-    if player2.y > ball.y then
+    if player2.y > ball.y + 2 then
         player2.dy = -PADDLE_SPEED
-    elseif player2.y < ball.y then
+    elseif player2.y < ball.y -2 then
         player2.dy = PADDLE_SPEED
     else
         player2.dy = 0
