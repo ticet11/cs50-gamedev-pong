@@ -20,6 +20,7 @@ VIRTUAL_HEIGHT = 243
 
 -- Paddle speed
 PADDLE_SPEED = 200
+AI_PADDLE_SPEED = 150
 
 -- love.load runs once, when the game initializes
 
@@ -184,9 +185,9 @@ function love.update(dt)
 
     -- player 2 AI movement
     if player2.y > ball.y + 2 then
-        player2.dy = -PADDLE_SPEED
-    elseif player2.y < ball.y -2 then
-        player2.dy = PADDLE_SPEED
+        player2.dy = -AI_PADDLE_SPEED
+    elseif player2.y < ball.y - 2 then
+        player2.dy = AI_PADDLE_SPEED
     else
         player2.dy = 0
     end
@@ -256,6 +257,7 @@ function love.draw()
         love.graphics.setFont(smallFont)
         love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 0, 10, VIRTUAL_WIDTH, 'center')
         love.graphics.printf('Press "Enter" to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Press "W" and "S" to move paddle up and down!', 0, 30, VIRTUAL_WIDTH, 'center')
     elseif gameState == 'play' then
         -- no UI message to display
     elseif gameState == 'done' then
