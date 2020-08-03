@@ -2,7 +2,7 @@
 
 See it in action [here](https://www.youtube.com/watch?v=4Jgc57eRc9A), along with a quick rundown by me of some of the features and how they were implemented.
 
-To test it out, download the zip file and simply run the pong.exe file. 
+To test it out (Windows only, currently), download the zip file and simply run the pong.exe file. 
 
 [Download Link](https://wiltingdaisy.com/projects/downloads/pong.zip)
 
